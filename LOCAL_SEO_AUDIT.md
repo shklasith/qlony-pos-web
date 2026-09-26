@@ -130,8 +130,8 @@ No website source files were changed. No safe SEO fix could be justified that di
 
 ## 12. Production State After Changes
 
-- Audit report committed: pending.
-- Changes pushed: pending.
+- Audit report committed: yes (`3f998d3`, followed by a status correction commit).
+- Changes pushed: yes, to `origin/main`.
 - Website source changes: none.
 - Production deployed: NOT VERIFIED — no deployment was performed or checked.
 - Live site verified: NOT VERIFIED — production access was explicitly excluded.
