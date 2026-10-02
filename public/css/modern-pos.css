@@ -316,6 +316,7 @@
     .app-shell .btn-xs { min-height: 44px; padding-top: 10px; padding-bottom: 10px; }
     .app-shell #register_wrapper,
     .app-shell #overall_sale { float: none; width: 100%; margin: 0 0 14px; }
+    .app-shell #register_wrapper { max-width: 100%; overflow-x: auto; }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
@@ -330,7 +331,6 @@
     .app-shell .topbar > .container { align-items: flex-start; flex-wrap: wrap; gap: 5px 12px; }
     .app-shell .navbar-center { position: static; order: -1; flex: 1 1 100%; text-align: left !important; }
     .app-shell .navbar-right { float: none !important; }
-    .app-shell .topbar > .container { align-items: flex-start; }
     .app-shell .navbar > .container { display: block; }
     .app-shell .navbar-collapse { max-height: 65vh; overflow-y: auto; }
     .app-shell .navbar .navbar-nav { display: block; margin: 0; }
