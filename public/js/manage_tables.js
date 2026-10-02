@@ -1,5 +1,12 @@
 (function(dialog_support, $) {
 
+    // Use the responsive card view below tablet landscape widths so dense
+    // management tables remain readable and tappable without page overflow.
+    $.extend($.fn.bootstrapTable.defaults, {
+        mobileResponsive: true,
+        minWidth: 800
+    });
+
     let btn_id, dialog_ref;
 
     const hide = function() {

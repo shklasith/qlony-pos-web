@@ -7,7 +7,6 @@ use App\Libraries\Mailchimp_lib;
 use App\Models\Customer;
 use App\Models\Customer_rewards;
 use App\Models\Tax_code;
-use CodeIgniter\HTTP\DownloadResponse;
 use CodeIgniter\HTTP\ResponseInterface;
 use Config\OSPOS;
 use Config\Services;
@@ -376,13 +375,22 @@ class Customers extends Persons
     /**
      * Customers import from csv spreadsheet
      *
-     * @return DownloadResponse The template for Customer CSV imports is returned and download forced.
+     * @return ResponseInterface The template for Customer CSV imports is returned and download forced.
      * @noinspection PhpUnused
      */
-    public function getCsv(): DownloadResponse
+    public function getCsv(): ResponseInterface
     {
         $name = 'importCustomers.csv';
-        $data = file_get_contents(WRITEPATH . "uploads/$name");
+        $path = WRITEPATH . "uploads/$name";
+        if (!is_file($path) || !is_readable($path)) {
+            return $this->response->setStatusCode(404);
+        }
+
+        $data = file_get_contents($path);
+        if ($data === false) {
+            return $this->response->setStatusCode(404);
+        }
+
         return $this->response->download($name, $data);
     }
 

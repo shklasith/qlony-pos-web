@@ -4,6 +4,8 @@
     dialog_support.init("a.modal-dlg");
 </script>
 
+<h1 id="page_title"><?= lang('Module.config') ?></h1>
+
 <ul class="nav nav-tabs" data-tabs="tabs">
     <li class="active" role="presentation">
         <a data-toggle="tab" href="#info_tab" title="<?= lang('Config.info_configuration') ?>"><?= lang('Config.info') ?></a>

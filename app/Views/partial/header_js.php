@@ -65,6 +65,10 @@
 
     $(document).ajaxComplete(setup_csrf_token);
     $(document).ready(function() {
+        $('#pos-navbar-collapse').on('shown.bs.collapse hidden.bs.collapse', function(event) {
+            $('.navbar-toggle[aria-controls="pos-navbar-collapse"]').attr('aria-expanded', event.type === 'shown');
+        });
+
         $("#logout").click(function(event) {
             event.preventDefault();
             $.ajax({

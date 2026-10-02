@@ -16,6 +16,7 @@ $request = Services::request();
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="<?= base_url() ?>">
     <title><?= esc($config['company']) . ' | ' . lang('Common.powered_by') . ' OSPOS ' . esc(config('App')->application_version) ?></title>
     <meta name="robots" content="noindex, nofollow">
@@ -45,6 +46,7 @@ $request = Services::request();
         <link rel="stylesheet" href="resources/css/receipt-0606f1c54e.css">
         <link rel="stylesheet" href="resources/css/register-e88ac141ce.css">
         <link rel="stylesheet" href="resources/css/reports-ace7faf688.css">
+        <link rel="stylesheet" href="resources/css/modern-pos-60c87c09a7.css">
         <!-- endinject -->
         <!-- inject:debug:js -->
         <script src="resources/js/jquery-12e87d2f3a.js"></script>
@@ -80,12 +82,12 @@ $request = Services::request();
         <script src="resources/js/bootstrap-toggle-1c7a19a049.js"></script>
         <script src="resources/js/clipboard-908af414ab.js"></script>
         <script src="resources/js/imgpreview-1db063409f.full.jquery.js"></script>
-        <script src="resources/js/manage_tables-9db1813775.js"></script>
+        <script src="resources/js/manage_tables-7e5e0e0d31.js"></script>
         <script src="resources/js/nominatim-d187095956.autocomplete.js"></script>
         <!-- endinject -->
     <?php else : ?>
         <!--inject:prod:css -->
-        <link rel="stylesheet" href="resources/opensourcepos-c3c51fd7e7.min.css">
+        <link rel="stylesheet" href="resources/opensourcepos-269c6f7e26.min.css">
         <!-- endinject -->
 
         <!-- Tweaks to the UI for a particular theme should drop here  -->
@@ -94,7 +96,7 @@ $request = Services::request();
         <?php } ?>
         <!-- inject:prod:js -->
         <script src="resources/jquery-2c872dbe60.min.js"></script>
-        <script src="resources/opensourcepos-67654cfe14.min.js"></script>
+        <script src="resources/opensourcepos-9a3bab9540.min.js"></script>
         <!-- endinject -->
     <?php endif; ?>
 
@@ -108,7 +110,7 @@ $request = Services::request();
     </style>
 </head>
 
-<body>
+<body class="app-shell theme-<?= esc($theme, 'attr') ?>">
     <div class="wrapper">
         <div class="topbar">
             <div class="container">
@@ -128,24 +130,25 @@ $request = Services::request();
             </div>
         </div>
 
-        <div class="navbar navbar-default" role="navigation">
+        <nav class="navbar navbar-default" role="navigation" aria-label="<?= esc(lang('Common.software_title'), 'attr') ?>">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#pos-navbar-collapse" aria-controls="pos-navbar-collapse" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
 
-                    <a class="navbar-brand hidden-sm" href="<?= site_url() ?>">OSPOS</a>
+                    <a class="navbar-brand" href="<?= site_url() ?>">OSPOS</a>
                 </div>
 
-                <div class="navbar-collapse collapse">
+                <div class="navbar-collapse collapse" id="pos-navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <?php foreach ($allowed_modules as $module): ?>
-                            <li class="<?= $module->module_id == $request->getUri()->getSegment(1) ? 'active' : '' ?>">
-                                <a href="<?= base_url($module->module_id) ?>" title="<?= lang("Module.$module->module_id") ?>" class="menu-icon">
+                            <?php $isActiveModule = $module->module_id == $request->getUri()->getSegment(1); ?>
+                            <li class="<?= $isActiveModule ? 'active' : '' ?>">
+                                <a href="<?= base_url($module->module_id) ?>" title="<?= lang("Module.$module->module_id") ?>" class="menu-icon" <?= $isActiveModule ? 'aria-current="page"' : '' ?>>
                                     <img src="<?= base_url("images/menubar/$module->module_id.svg") ?>" style="border: none;" alt="Module Icon"><br>
                                     <?= lang('Module.' . $module->module_id) ?>
                                 </a>
@@ -154,7 +157,7 @@ $request = Services::request();
                     </ul>
                 </div>
             </div>
-        </div>
+        </nav>
 
         <div class="container">
             <div class="row">
