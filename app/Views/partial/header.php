@@ -46,7 +46,7 @@ $request = Services::request();
         <link rel="stylesheet" href="resources/css/receipt-0606f1c54e.css">
         <link rel="stylesheet" href="resources/css/register-e88ac141ce.css">
         <link rel="stylesheet" href="resources/css/reports-ace7faf688.css">
-        <link rel="stylesheet" href="resources/css/modern-pos-de54fad3b8.css">
+        <link rel="stylesheet" href="resources/css/modern-pos-337fd0992b.css">
         <!-- endinject -->
         <!-- inject:debug:js -->
         <script src="resources/js/jquery-12e87d2f3a.js"></script>
@@ -82,12 +82,12 @@ $request = Services::request();
         <script src="resources/js/bootstrap-toggle-1c7a19a049.js"></script>
         <script src="resources/js/clipboard-908af414ab.js"></script>
         <script src="resources/js/imgpreview-1db063409f.full.jquery.js"></script>
-        <script src="resources/js/manage_tables-9db1813775.js"></script>
+        <script src="resources/js/manage_tables-7e5e0e0d31.js"></script>
         <script src="resources/js/nominatim-d187095956.autocomplete.js"></script>
         <!-- endinject -->
     <?php else : ?>
         <!--inject:prod:css -->
-        <link rel="stylesheet" href="resources/opensourcepos-5201b63256.min.css">
+        <link rel="stylesheet" href="resources/opensourcepos-fb85060139.min.css">
         <!-- endinject -->
 
         <!-- Tweaks to the UI for a particular theme should drop here  -->
@@ -96,7 +96,7 @@ $request = Services::request();
         <?php } ?>
         <!-- inject:prod:js -->
         <script src="resources/jquery-2c872dbe60.min.js"></script>
-        <script src="resources/opensourcepos-67654cfe14.min.js"></script>
+        <script src="resources/opensourcepos-9a3bab9540.min.js"></script>
         <!-- endinject -->
     <?php endif; ?>
 

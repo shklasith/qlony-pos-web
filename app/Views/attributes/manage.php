@@ -22,6 +22,7 @@
 </script>
 
 <div id="title_bar" class="btn-toolbar print_hide">
+    <h1 id="page_title"><?= lang('Module.' . $controller_name) ?></h1>
     <button class="btn btn-info btn-sm pull-right modal-dlg" data-btn-submit="<?= lang('Common.submit') ?>" data-href="<?= esc("$controller_name/view") ?>" title="<?= lang(ucfirst($controller_name) . ".new") ?>">
         <span class="glyphicon glyphicon-star">&nbsp;</span><?= lang(ucfirst($controller_name) . ".new") ?>
     </button>

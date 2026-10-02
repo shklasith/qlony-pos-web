@@ -47,6 +47,7 @@
 <?= view('partial/print_receipt', ['print_after_sale' => false, 'selected_printer' => 'takings_printer']) ?>
 
 <div id="title_bar" class="print_hide btn-toolbar">
+    <h1 id="page_title"><?= lang('Module.' . $controller_name) ?></h1>
     <button onclick="printdoc()" class="btn btn-info btn-sm pull-right">
         <span class="glyphicon glyphicon-print">&nbsp;</span><?= lang('Common.print') ?>
     </button>

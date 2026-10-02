@@ -54,6 +54,11 @@
 .app-shell .navbar-center { position: absolute; inset-inline: 180px; pointer-events: none; }
 .app-shell .navbar-right { margin: 0 !important; }
 
+@media (max-width: 991px) {
+    .app-shell .topbar > .container { gap: 12px; }
+    .app-shell .navbar-center { position: static; flex: 1 1 auto; min-width: 0; white-space: nowrap; }
+}
+
 .app-shell .navbar.navbar-default {
     z-index: 20;
     min-height: 68px;
@@ -118,6 +123,7 @@
 }
 .app-shell #title_bar > .pull-right { float: none !important; margin-left: 0; }
 .app-shell #page_title { color: var(--pos-ink); font-size: 25px; font-weight: 700; letter-spacing: -.035em; line-height: 1.25; }
+.app-shell #title_bar #page_title { flex: 1 1 auto; margin: 0 auto 0 0; text-align: left; }
 .app-shell #page_subtitle { margin: 4px 0 18px; color: var(--pos-muted); font-size: 14px; font-weight: 500; text-align: left; }
 
 .app-shell .panel,
@@ -240,6 +246,10 @@
 .app-shell .fixed-table-toolbar { padding: 12px 14px; }
 .app-shell .fixed-table-pagination { padding: 0 14px 10px; }
 .app-shell .fixed-table-body { max-width: 100%; overflow-x: auto; }
+.app-shell .card-views { padding: 2px 0; }
+.app-shell .bootstrap-table .table tbody tr .card-view { align-items: flex-start; gap: 10px; padding: 5px 0; }
+.app-shell .bootstrap-table .table tbody tr .card-view .card-view-title { flex: 0 0 34%; min-width: 0; color: var(--pos-muted); font-weight: 650; overflow-wrap: anywhere; }
+.app-shell .bootstrap-table .table tbody tr .card-view .card-view-value { min-width: 0; overflow-wrap: anywhere; }
 .app-shell .pagination > li > a,
 .app-shell .pagination > li > span { min-width: 38px; min-height: 38px; margin-left: 4px; padding: 9px 11px; border-radius: 8px !important; }
 .app-shell .label { display: inline-block; padding: .4em .65em; border-radius: 999px; font-weight: 650; }
@@ -301,6 +311,9 @@
     .app-shell .navbar-collapse { width: 100%; }
     .app-shell .navbar .navbar-nav { justify-content: flex-start; padding: 8px 0 12px; }
     .app-shell .navbar.navbar-default { margin-bottom: 18px; }
+    .app-shell .btn { min-height: 44px; }
+    .app-shell .btn-sm,
+    .app-shell .btn-xs { min-height: 44px; padding-top: 10px; padding-bottom: 10px; }
     .app-shell #register_wrapper,
     .app-shell #overall_sale { float: none; width: 100%; margin: 0 0 14px; }
 }
@@ -317,16 +330,30 @@
     .app-shell .topbar > .container { align-items: flex-start; flex-wrap: wrap; gap: 5px 12px; }
     .app-shell .navbar-center { position: static; order: -1; flex: 1 1 100%; text-align: left !important; }
     .app-shell .navbar-right { float: none !important; }
+    .app-shell .topbar > .container { align-items: flex-start; }
     .app-shell .navbar > .container { display: block; }
     .app-shell .navbar-collapse { max-height: 65vh; overflow-y: auto; }
     .app-shell .navbar .navbar-nav { display: block; margin: 0; }
     .app-shell .navbar-nav > li > a.menu-icon { min-height: 44px; padding: 11px 12px; }
     .app-shell #title_bar { align-items: stretch; }
+    .app-shell #title_bar #page_title { flex-basis: 100%; }
     .app-shell #title_bar > .pull-right { margin-left: 0; }
     .app-shell #page_title { font-size: 22px; }
     .app-shell .panel-body { padding: 14px; }
     .app-shell .modal-dialog { width: auto !important; margin: 12px; }
     .app-shell .modal-body { max-height: calc(100vh - 170px); padding: 16px; }
+    .app-shell .modal .form-horizontal .form-group > .control-label,
+    .app-shell .tab-content form.form-horizontal .form-group > .control-label {
+        float: none;
+        width: 100%;
+        padding: 0 15px 5px;
+        text-align: left;
+    }
+    .app-shell .modal .form-horizontal .form-group > [class*="col-"],
+    .app-shell .tab-content form.form-horizontal .form-group > [class*="col-"] {
+        float: none;
+        width: 100%;
+    }
     .app-shell .fixed-table-toolbar .columns-right { margin-top: 8px; }
     .app-shell #home_module_list,
     .app-shell #office_module_list { grid-template-columns: repeat(auto-fill, minmax(126px, 1fr)); gap: 10px; }
@@ -342,7 +369,7 @@
     .app-shell .topbar { font-size: 11px; }
     .app-shell #register th,
     .app-shell #register td { padding: 6px 4px; font-size: 12px; }
-    .app-shell .btn { white-space: normal; }
+    .app-shell .btn { min-height: 44px; white-space: normal; }
     .app-shell #mode_form ul li,
     .app-shell #add_item_form ul li { flex: 1 1 100%; }
     .app-shell #mode_form .control-label { display: inline-block; margin: 5px 0; }
