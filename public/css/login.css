@@ -122,6 +122,15 @@ img.logo {
     border-top-right-radius: 0;
 }
 
+.box-login .form-floating input[name="username"] {
+    margin-bottom: 12px;
+    border-radius: 10px !important;
+}
+
+.box-login .form-floating input[name="password"] {
+    border-radius: 10px !important;
+}
+
 .alert div:not(:first-child) {
     margin-top: 1rem; /* Space between multiple validation errors */
 }
