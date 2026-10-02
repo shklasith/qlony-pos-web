@@ -92,101 +92,106 @@ use Config\OSPOS;
                 $images = FCPATH. 'uploads/item_pics/';
                 $importCustomers = WRITEPATH . '/uploads/importCustomers.csv';    // TODO: This variable does not follow naming conventions for the project.
 
+                // Permission reporting must work before optional runtime paths exist.
+                $permissionMode = static function (string $path): ?string {
+                    clearstatcache(true, $path);
+
+                    if (!is_file($path) && !is_dir($path)) {
+                        return null;
+                    }
+
+                    $permissions = fileperms($path);
+
+                    return $permissions === false ? null : substr(sprintf('%o', $permissions), -4);
+                };
+
+                $logsMode = $permissionMode($logs);
+                $uploadsMode = $permissionMode($uploads);
+                $imagesMode = $permissionMode($images);
+                $importCustomersMode = $permissionMode($importCustomers);
+                $modeText = static fn (?string $mode): string => $mode ?? 'Unavailable';
+
                 if (is_writable($logs)) {
-                    echo ' -  ' . substr(sprintf("%o", fileperms($logs)), -4) . ' |  ' . '<span style="color: green;">  Writable &#x2713 </span>';
+                    echo ' -  ' . $modeText($logsMode) . ' |  ' . '<span style="color: green;">  Writable &#x2713 </span>';
                 } else {
-                    echo ' -  ' . substr(sprintf("%o", fileperms($logs)), -4) . ' |  ' . '<span style="color: red;">    Not Writable &#x2717 </span>';
+                    echo ' -  ' . $modeText($logsMode) . ' |  ' . '<span style="color: red;">    Not Writable &#x2717 </span>';
                 }
 
-                clearstatcache();
-                if (is_writable($logs) && substr(decoct(fileperms($logs)), -4) != 750) {
+                if ($logsMode !== '0750') {
                     echo ' | <span style="color: red;">Vulnerable or Incorrect Permissions &#x2717</span>';
                 } else {
                     echo ' | <span style="color: green;">Security Check Passed &#x2713</span>';
                 }
-                clearstatcache();
                 ?>
                 <br>
                 &#187; [public/uploads:]
                 <?php
                 if (is_writable($uploads)) {
-                    echo ' -  ' . substr(sprintf("%o", fileperms($uploads)), -4) . ' |  ' . '<span style="color: green;">     Writable &#x2713 </span>';
+                    echo ' -  ' . $modeText($uploadsMode) . ' |  ' . '<span style="color: green;">     Writable &#x2713 </span>';
                 } else {
-                    echo ' -  ' . substr(sprintf("%o", fileperms($uploads)), -4) . ' |  ' . '<span style="color: red;"> Not Writable &#x2717 </span>';
+                    echo ' -  ' . $modeText($uploadsMode) . ' |  ' . '<span style="color: red;"> Not Writable &#x2717 </span>';
                 }
 
-                clearstatcache();
-
-                if (is_writable($uploads) && substr(decoct(fileperms($uploads)), -4) != 750) {
+                if ($uploadsMode !== '0750') {
                     echo ' | <span style="color: red;">Vulnerable or Incorrect Permissions &#x2717</span>';
                 } else {
                     echo ' |  <span style="color: green;">Security Check Passed &#x2713 </span>';
                 }
-
-                clearstatcache();
                 ?>
                 <br>
                 &#187; [public/uploads/item_pics:]
                 <?php
                 if (is_writable($images)) {
-                    echo ' -  ' . substr(sprintf("%o", fileperms($images)), -4) . ' |     ' . '<span style="color: green;"> Writable &#x2713 </span>';
+                    echo ' -  ' . $modeText($imagesMode) . ' |     ' . '<span style="color: green;"> Writable &#x2713 </span>';
                 } else {
-                    echo ' -  ' . substr(sprintf("%o", fileperms($images)), -4) . ' |     ' . '<span style="color: red;"> Not Writable &#x2717 </span>';
+                    echo ' -  ' . $modeText($imagesMode) . ' |     ' . '<span style="color: red;"> Not Writable &#x2717 </span>';
                 }
 
-                clearstatcache();
-
-                if (substr(decoct(fileperms($images)), -4) != 750) {
+                if ($imagesMode !== '0750') {
                     echo ' | <span style="color: red;">Vulnerable or Incorrect Permissions &#x2717</span>';
                 } else {
                     echo ' | <span style="color: green;">Security Check Passed &#x2713 </span>';
                 }
-
-                clearstatcache();
                 ?>
                 <br>
                 &#187; [importCustomers.csv:]
                 <?php
                 if (is_readable($importCustomers)) {
-                    echo ' -  ' . substr(sprintf("%o", fileperms($importCustomers)), -4) . ' |  ' . '<span style="color: green;">     Readable &#x2713 </span>';
+                    echo ' -  ' . $modeText($importCustomersMode) . ' |  ' . '<span style="color: green;">     Readable &#x2713 </span>';
                 } else {
-                    echo ' -  ' . substr(sprintf("%o", fileperms($importCustomers)), -4) . ' |  ' . '<span style="color: red;"> Not Readable &#x2717 </span>';
+                    echo ' -  ' . $modeText($importCustomersMode) . ' |  ' . '<span style="color: red;"> Not Readable &#x2717 </span>';
                 }
-                clearstatcache();
 
-                if (!((substr(decoct(fileperms($importCustomers)), -4) == 640) || (substr(decoct(fileperms($importCustomers)), -4) == 660))) {
+                if (!in_array($importCustomersMode, ['0640', '0660'], true)) {
                     echo ' | <span style="color: red;">Vulnerable or Incorrect Permissions &#x2717</span>';
                 } else {
                     echo ' | <span style="color: green;">Security Check Passed &#x2713 </span>';
                 }
-                clearstatcache();
                 ?>
                 <br>
                 <?php
-                if (!((substr(decoct(fileperms($logs)), -4) == 750)
-                    && (substr(decoct(fileperms($uploads)), -4) == 750)
-                    && (substr(decoct(fileperms($images)), -4) == 750)
-                    && ((substr(decoct(fileperms($importCustomers)), -4) == 640)
-                        || (substr(decoct(fileperms($importCustomers)), -4) == 660)))) {
+                if ($logsMode !== '0750'
+                    || $uploadsMode !== '0750'
+                    || $imagesMode !== '0750'
+                    || !in_array($importCustomersMode, ['0640', '0660'], true)) {
                     echo '<br><span style="color: red;"><strong>' . lang('Config.security_issue') . '</strong> <br>' . lang('Config.perm_risk') . '</span><br>';
                 } else {
                     echo '<br><span style="color: green;">' . lang('Config.no_risk') . '</strong> <br> </span>';
                 }
 
-                if (substr(decoct(fileperms($logs)), -4) != 750) {
+                if ($logsMode !== '0750') {
                     echo '<br><span style="color: red;"> &#187; [writable/logs:] ' . lang('Config.is_writable') . '</span>';
                 }
 
-                if (substr(decoct(fileperms($uploads)), -4) != 750) {
+                if ($uploadsMode !== '0750') {
                     echo '<br><span style="color: red;"> &#187; [writable/uploads:] ' . lang('Config.is_writable') . '</span>';
                 }
 
-                if (substr(decoct(fileperms($images)), -4) != 750) {
+                if ($imagesMode !== '0750') {
                     echo '<br><span style="color: red;"> &#187; [writable/uploads/item_pics:] ' . lang('Config.is_writable') . '</span>';
                 }
 
-                if (!((substr(decoct(fileperms($importCustomers)), -4) == 640)
-                    || (substr(decoct(fileperms($importCustomers)), -4) == 660))) {
+                if (!in_array($importCustomersMode, ['0640', '0660'], true)) {
                     echo '<br><span style="color: red;"> &#187; [importCustomers.csv:] ' . lang('Config.is_readable') . '</span>';
                 }
                 ?>
